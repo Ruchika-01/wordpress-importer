@@ -37,7 +37,7 @@ class WXR_Parser_Regex {
 		);
 
 		$fp = $this->fopen( $file, 'r' );
-		if ( $fp ) {
+		if ($fp ) {
 			while ( ! $this->feof( $fp ) ) {
 				$is_tag_line = false;
 				$importline  = rtrim( $this->fgets( $fp ) );
@@ -126,14 +126,11 @@ class WXR_Parser_Regex {
 				if ( strpos( $return[1], ']]]]><![CDATA[>' ) !== false ) {
 					preg_match_all( '|<!\[CDATA\[(.*?)\]\]>|s', $return[1], $matches );
 						$return = '';
-							if ( isset( $matches[1] ) && is_array( $matches[1] )) {
-								foreach ( $matches[1] as $match ) {
+					if ( isset( $matches[1]) && is_array( $matches[1])) {
+						foreach ( $matches[1] as $match) {
 									$return .= $match;
-								}
+						}
 							}
-
-
-
 				} else {
 					$return = preg_replace( '|^<!\[CDATA\[(.*)\]\]>$|s', '$1', $return[1] );
 				}
@@ -317,7 +314,7 @@ class WXR_Parser_Regex {
 		}
 
 		$post_meta = $this->process_meta( $post, 'wp:postmeta' );
-		if ( ! empty( $post_meta ) ) {
+		if (! empty( $post_meta ) ) {
 			$postdata['postmeta'] = $post_meta;
 		}
 
@@ -325,33 +322,33 @@ class WXR_Parser_Regex {
 	}
 
 	public function _normalize_tag( $matches ) {
-	$tag = $matches[1] ?? '';
-	return '<' . strtolower( $tag );
+		$tag = $matches[1] ?? '';
+		return '<' . strtolower( $tag );
 	}	
 
 	public function fopen( $filename, $mode = 'r' ) {
-		if ( $this->has_gzip ) {
+		if ($this->has_gzip ) {
 			return gzopen( $filename, $mode );
 		}
 		return fopen( $filename, $mode );
 	}
 
 	public function feof( $fp ) {
-		if ( $this->has_gzip ) {
+		if ($this->has_gzip ) {
 			return gzeof( $fp );
 		}
 		return feof( $fp );
 	}
 
 	public function fgets( $fp, $len = 8192 ) {
-		if ( $this->has_gzip ) {
+		if ($this->has_gzip ) {
 			return gzgets( $fp, $len );
 		}
 		return fgets( $fp, $len );
 	}
 
 	public function fclose( $fp ) {
-		if ( $this->has_gzip ) {
+		if ($this->has_gzip ) {
 			return gzclose( $fp );
 		}
 		return fclose( $fp );
