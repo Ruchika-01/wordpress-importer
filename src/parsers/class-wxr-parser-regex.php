@@ -126,7 +126,7 @@ class WXR_Parser_Regex {
 				if ( strpos( $return[1], ']]]]><![CDATA[>' ) !== false ) {
 					preg_match_all( '|<!\[CDATA\[(.*?)\]\]>|s', $return[1], $matches );
 						$return = '';
-					if ( isset( $matches[1]) && is_array( $matches[1] ) ) {
+					if ( isset( $matches[1] ) && is_array( $matches[1] ) ) {
 						foreach ( $matches[1] as $match ) {
 									$return .= $match;
 						}
