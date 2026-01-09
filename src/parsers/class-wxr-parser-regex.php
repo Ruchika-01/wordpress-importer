@@ -125,12 +125,13 @@ class WXR_Parser_Regex {
 			if ( substr( $return[1], 0, 9 ) == '<![CDATA[' ) {
 				if ( strpos( $return[1], ']]]]><![CDATA[>' ) !== false ) {
 					preg_match_all( '|<!\[CDATA\[(.*?)\]\]>|s', $return[1], $matches );
-					$return = '';
-					if ( isset( $matches[1] ) && is_array( $matches[1] ) ) {
-    				foreach ( $matches[1] as $match ) {
-        				$return .= $match;
-    					}
+						$return = '';
+				if ( isset( $matches[1] ) && is_array( $matches[1] ) ) {
+					foreach ( $matches[1] as $match ) {
+						$return .= $match;
 					}
+			}
+
 
 				} else {
 					$return = preg_replace( '|^<!\[CDATA\[(.*)\]\]>$|s', '$1', $return[1] );
@@ -323,9 +324,9 @@ class WXR_Parser_Regex {
 	}
 
 	public function _normalize_tag( $matches ) {
-    $tag = $matches[1] ?? '';
-    return '<' . strtolower( $tag );
-}
+	$tag = $matches[1] ?? '';
+	return '<' . strtolower( $tag );
+	}	
 
 	public function fopen( $filename, $mode = 'r' ) {
 		if ( $this->has_gzip ) {
